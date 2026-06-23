@@ -40,7 +40,7 @@ main {
 main .add-list {
     width: 10rem;
     height: 12rem;
-    background-color: aliceblue;
+    background-color: #E9F1FA;
     text-align: center;
     padding-top: 1rem;
     border-radius: 8px;
@@ -56,16 +56,23 @@ main .add-list {
     color: white;
     cursor: pointer;
 }
+.add-list.hidden {
+    display: none;
+    opacity: 0;
+}
 .list {
     display: none;
 }
 .list.bang {
     display: block;
     width: 40%;
-    background-color: aliceblue;
+    background-color: #E9F1FA;
     padding: 1.5rem;
     border-radius: 6px;
-
+    position: fixed;
+    box-shadow: 0 0 5px black;
+    left: 29%;
+    top: 20%;
 }
 .head-list {
     display: flex;
@@ -75,7 +82,8 @@ main .add-list {
 }
 #delete {
     border: none;
-    background-color: aliceblue;
+    background-color: #E9F1FA;
+    cursor: pointer;
 }
 .main-list h3 {
     margin-bottom: 0.2rem;
@@ -87,18 +95,31 @@ main .add-list {
     border-radius: 4px;
     padding: 5px;
     width: 98%;
+    overflow-y: auto;
 }
 .main-list input:focus {
     outline: none;
-    border: 1px solid blue;
-    box-shadow: 0 0 4px 1px rgb(59, 59, 255);
+    border: 1px solid black;
+    box-shadow: 0 0 1px 1px rgb(0, 0, 0);
 }
 #large {
     height: 5rem;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-y: auto;
+    border: none;
+    border-radius: 4px;
+}
+#large:focus {
+    outline: none;
+    border: 1px solid black;
+    box-shadow: 0 0 1px black;
 }
 .button {
     display: flex;
     justify-content: flex-end;
+    cursor: pointer;
 }
 #list-button {
     width: 5rem;
@@ -108,4 +129,5 @@ main .add-list {
     border-radius: 6px;
     border: none;
     margin-top: 1rem;
+    cursor: pointer;
 }
