@@ -6,45 +6,53 @@ const cancelList = document.getElementById('delete');
 const plusList = document.getElementById('plus');
 const mainList = document.getElementById('main-list');
 const addButton = document.getElementById('list-button');
-const containerList = document.getElementById('list container')
+const containerList = document.getElementById('list-container');
+let listCard = [];
 
 addlisthead.addEventListener('click', () => {
     list.classList.toggle('bang');
     addList.classList.toggle('hidden');
 });
-plusList.addEventListener('click', () => {
-    list.classList.toggle('bang');
-    addList.classList.toggle('hidden');
-    console.log('hello world');
-});
+// plusList.addEventListener('click', () => {
+//     list.classList.toggle('bang');
+//     addList.classList.toggle('hidden');
+//     console.log('hello world');
+// });
 cancelList.addEventListener('click', () => {
     list.classList.remove('bang');
     addList.classList.remove('hidden');
-}); 
 
-addButton.addEventListener('click', () => {
-    const resaultForm = {
-        title : document.getElementById('title-list').value,
-        teks : document.getElementById('large').value
-    };
-    localStorage.setItem('save-title', JSON.stringify(resaultForm));
 });
 
-function writelist () {
+addButton.addEventListener('click', () => {
+    listCard.push({
+        title: document.getElementById('title-list').value,
+        teks: document.getElementById('large').value
+    });
+    localStorage.setItem('save-title', JSON.stringify(listCard));
+});
+
+const getData = JSON.parse(localStorage.getItem('save-title')) || [];
+
+
+function writelist() {
     const getData = JSON.parse(localStorage.getItem('save-title'));
-    if(getData === 0) {
+    if (!getData || getData.lenght === 0) {
         addList.classList.remove('hidden');
     } else {
-        containerList.innerHTML = `
-        <div class="list-note">
-            <div class="note">
-                <h2>
-            </div>
+        containerList.innerHTML = getData.map(listData =>
+            `<div class="list-note">
+                <div class="note">
+                    <h2>${listData.title}</h2>
+                    <p>${listData.teks}</p>
+                </div>
         </div>`
+        ).join('')
     }
-    console.log(getdata);
 }
-writelist()
+document.addEventListener('DOMContentLoaded', () => {
+    writelist()
+})
 
-    
+
 // localStorage.clear();
