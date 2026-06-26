@@ -41,11 +41,12 @@ function writelist() {
         addList.classList.remove('hidden');
     } else {
         containerList.innerHTML = getData.map(listData =>
-            `<div class="list-note">
-                <div class="note">
-                    <h2>${listData.title}</h2>
+        `<div class="list-note">
+                    <div class="head-note">                
+                        <h2>${listData.title}</h2>
+                        <p>X</p>
+                    </div>
                     <p>${listData.teks}</p>
-                </div>
         </div>`
         ).join('')
     }
