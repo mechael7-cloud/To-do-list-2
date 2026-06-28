@@ -131,3 +131,26 @@ main .add-list {
     margin-top: 1rem;
     cursor: pointer;
 }
+.list-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    grid-auto-rows: 150px;
+    gap: 5rem;
+}
+.list-note {
+    background-color: #E9F1FA;
+    padding: 10px;
+    border-radius: 8px;
+}
+.head-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.head-note h2 {
+    font-size: 1.1rem;
+}
+.head-note p {
+    cursor: pointer;
+}

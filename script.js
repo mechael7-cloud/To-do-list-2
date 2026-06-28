@@ -11,46 +11,79 @@ let listCard = [];
 
 addlisthead.addEventListener('click', () => {
     list.classList.toggle('bang');
+    addList.classList.add('hidden');
+});
+plusList.addEventListener('click', () => {
+    list.classList.toggle('bang');
     addList.classList.toggle('hidden');
 });
-// plusList.addEventListener('click', () => {
-//     list.classList.toggle('bang');
-//     addList.classList.toggle('hidden');
-//     console.log('hello world');
-// });
 cancelList.addEventListener('click', () => {
     list.classList.remove('bang');
-    addList.classList.remove('hidden');
-
 });
+
 
 addButton.addEventListener('click', () => {
-    listCard.push({
-        title: document.getElementById('title-list').value,
-        teks: document.getElementById('large').value
-    });
-    localStorage.setItem('save-title', JSON.stringify(listCard));
+    saveData();
+    list.classList.remove('bang');
+    writelist()
 });
 
-const getData = JSON.parse(localStorage.getItem('save-title')) || [];
 
+
+
+function saveData(e) {
+
+    const listCard = {
+        title: document.getElementById('title-list').value,
+        teks: document.getElementById('large').value,
+        id: Date.now()
+    };
+
+    const allData = JSON.parse(localStorage.getItem('save-title')) || [];
+
+    allData.push(listCard);
+
+    localStorage.setItem('save-title', JSON.stringify(allData));
+
+}
 
 function writelist() {
-    const getData = JSON.parse(localStorage.getItem('save-title'));
-    if (!getData || getData.lenght === 0) {
+    const allData = JSON.parse(localStorage.getItem('save-title'));
+    if (!allData || allData.length === 0) {
         addList.classList.remove('hidden');
+        containerList.innerHTML = ''
     } else {
-        containerList.innerHTML = getData.map(listData =>
-        `<div class="list-note">
+        addList.classList.add('hidden')
+        containerList.innerHTML = allData.map(listData =>
+            `<div class="list-note" id="list-note" data-id='${listData.id}'>
                     <div class="head-note">                
                         <h2>${listData.title}</h2>
-                        <p>X</p>
+                        <p class="delete-list">x</p>
                     </div>
                     <p>${listData.teks}</p>
         </div>`
         ).join('')
     }
+
 }
+
+containerList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-list')) { // Memilih class/target 
+        const listNote = e.target.closest('.list-note'); //parent untuk elemen
+        const deleteId = parseInt(listNote.getAttribute('data-id')); // untuk menentukkan id atau untuk menhapus id
+
+        let allData = JSON.parse(localStorage.getItem('save-title')) || []; // mengambil data kembali
+        allData = allData.filter(item => item.id !== deleteId); // sortir data
+        localStorage.setItem('save-title', JSON.stringify(allData)); // memasukkan kembali data
+
+
+        listNote.remove(); // menghapus parent 
+    }
+})
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     writelist()
 })
